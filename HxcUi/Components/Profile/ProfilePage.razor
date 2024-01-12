@@ -1,0 +1,17 @@
+﻿@page "/hxc/profile"
+@using HxcUi.Services.Auth
+@using HxcUi.Services.Auth.Dto
+@inject IAuthService AuthService
+
+@if (UserProfile is not null)
+{
+    <Profile UserProfile="UserProfile"></Profile>
+}
+
+@code {
+    protected UserProfile? UserProfile { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        UserProfile = await AuthService.GetUserProfileAsync();
+    }
+}

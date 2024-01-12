@@ -1,4 +1,16 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿@using global::HxcUi.Components.Jobs
+@using System.Reflection
+
+@code {
+    public Assembly?[]? AdditionalAssemblies { get; set; }
+
+    protected override void OnInitialized()
+    {
+        AdditionalAssemblies = new[] { Assembly.GetAssembly(typeof(Jobs)) };
+    }
+}
+
+<Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="AdditionalAssemblies">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
         <FocusOnNavigate RouteData="@routeData" Selector="h1"/>

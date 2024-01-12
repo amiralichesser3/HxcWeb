@@ -1,4 +1,9 @@
-﻿@inherits LayoutComponentBase
+﻿@using MudBlazor
+@using MudBlazor.Utilities
+@inherits LayoutComponentBase
+<MudThemeProvider Theme="_theme" />
+<MudDialogProvider/>
+<MudSnackbarProvider/>
 <div class="page">
     <div class="sidebar">
         <NavMenu/>
@@ -14,3 +19,18 @@
         </article>
     </main>
 </div>
+
+@code
+{
+    private readonly MudTheme _theme = new()
+    {
+        Palette = new PaletteLight()
+        {
+            Background = new MudColor("#EBEBEB"),
+            Primary = new MudColor("#7F4053"),
+            Secondary = new MudColor("#c02d76"),
+            Tertiary = new MudColor("#407F6C"),
+            Warning = new MudColor("#C5B0B5")
+        }
+    };
+}

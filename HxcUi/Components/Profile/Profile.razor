@@ -1,0 +1,10 @@
+﻿@using global::HxcUi.Services.Auth.Dto
+<h3>Profile</h3>
+
+<MudText>@UserProfile?.UserName</MudText>
+
+@code
+{
+    [Parameter]
+    public UserProfile? UserProfile { get; set; }
+}
