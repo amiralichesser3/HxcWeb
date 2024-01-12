@@ -22,15 +22,5 @@
 
 @code
 {
-    private readonly MudTheme _theme = new()
-    {
-        Palette = new PaletteLight()
-        {
-            Background = new MudColor("#EBEBEB"),
-            Primary = new MudColor("#7F4053"),
-            Secondary = new MudColor("#c02d76"),
-            Tertiary = new MudColor("#407F6C"),
-            Warning = new MudColor("#C5B0B5")
-        }
-    };
+    private readonly MudTheme _theme = HxcUiThemeRepository.GetTheme();
 }
