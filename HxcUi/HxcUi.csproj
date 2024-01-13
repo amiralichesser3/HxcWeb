@@ -4,6 +4,10 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>0.0.2</Version>
+        <Title>HxcUi</Title>
+        <Description>HxcUi can be hosted by your MAUI or Blazor Wasm app</Description>
     </PropertyGroup>
 
     <ItemGroup>
