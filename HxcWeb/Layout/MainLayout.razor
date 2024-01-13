@@ -1,4 +1,9 @@
-﻿@inherits LayoutComponentBase
+﻿@using MudBlazor
+@using MudBlazor.Utilities
+@inherits LayoutComponentBase
+<MudThemeProvider Theme="_theme" />
+<MudDialogProvider/>
+<MudSnackbarProvider/>
 <div class="page">
     <div class="sidebar">
         <NavMenu/>
@@ -14,3 +19,8 @@
         </article>
     </main>
 </div>
+
+@code
+{
+    private readonly MudTheme _theme = HxcUiThemeRepository.GetTheme();
+}
