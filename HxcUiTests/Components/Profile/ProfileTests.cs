@@ -1,5 +1,0 @@
-[TestClass]
-public class ProfileTests()
-{
-
-}

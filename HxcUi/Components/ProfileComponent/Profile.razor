@@ -1,7 +1,11 @@
 ﻿@using global::HxcUi.Services.Auth.Dto
 <h3>Profile</h3>
-
-<MudText>@UserProfile?.UserName</MudText>
+@if (UserProfile != null)
+{
+    <MudText>
+        @UserProfile.UserName
+    </MudText>
+}
 
 @code
 {
