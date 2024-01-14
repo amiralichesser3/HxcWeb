@@ -16,4 +16,8 @@
       <ProjectReference Include="..\HxcUi\HxcUi.csproj" />
     </ItemGroup>
 
+    <PropertyGroup>
+        <OutputWasmDirectoryName>wwwroot</OutputWasmDirectoryName>
+    </PropertyGroup>
+
 </Project>

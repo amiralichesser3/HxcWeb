@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  hxc-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hxc-web:release
+    ports:
+      - "5000:5000"
+      - "8443:443"
