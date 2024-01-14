@@ -1,14 +1,14 @@
+using HxcWebTests.Fixture;
+
 namespace HxcWebTests.MainPage;
 
 [TestClass]
-public class MainPageTests : PageTest
+public class MainPageTests : HxcPageTest
 {
     [TestMethod]
-    [DataRow("https://localhost:7268/")] 
- // [DataRow("https://www.helpxchange.com/")]
-    public async Task HomePageLoaded_HxcJobsClicked_RoutingWorks(string url)
+    public async Task HomePageLoaded_HxcJobsClicked_RoutingWorks()
     {
-        await Page.GotoAsync(url);
+        await Page.GotoAsync(BaseUrl);
 
         await Expect(Page).ToHaveTitleAsync(new Regex("Home"));
 
