@@ -3,7 +3,7 @@ using HxcWebTests.Fixture;
 namespace HxcWebTests.MainPage;
 
 [TestClass]
-public class MainPageTests : HxcPageTest
+public class MainWebIntegrationTests : HxcWebIntegrationTest
 {
     [TestMethod]
     public async Task HomePageLoaded_HxcJobsClicked_RoutingWorks()
