@@ -1,5 +1,6 @@
 ﻿@using System.Reflection
 @using HxcUi.Components.JobsComponent
+@using MudBlazor;
 
 @code {
     public Assembly?[]? AdditionalAssemblies { get; set; }
@@ -10,15 +11,28 @@
     }
 }
 
-<Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="AdditionalAssemblies">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
-        <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="AdditionalAssemblies">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <Authorizing>
+                    <MudStack Row="true">
+                        <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true"/>
+                        <MudText Typo="Typo.caption">Determining session state, please wait...</MudText>
+                    </MudStack>
+                </Authorizing>
+                <NotAuthorized>
+                    <h1 id="access-denied">Access Denied</h1>
+                    <p>You're not authorized to reach this page. You need to <a style="color: dodgerblue;" href="/profile">log in</a>.</p>
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

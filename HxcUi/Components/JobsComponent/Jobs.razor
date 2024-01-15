@@ -1,8 +1,22 @@
 ﻿@page "/hxc/jobs"
 @inject NavigationManager NavigationManager
 
+
 <h3>Help<span style="color: #c02d76">X</span>Change</h3>
-<MudIconButton Icon="@Icons.Material.Outlined.Person"
-               id="profile-button"
-               OnClick="GoToProfile"
-               Color="Color.Secondary" aria-label="profile"></MudIconButton>
+<AuthorizeView>
+    <Authorized>
+         <MudIconButton Icon="@Icons.Material.Outlined.Person"
+                        id="profile-button"
+                        OnClick="GoToProfile"
+                        Color="Color.Secondary" aria-label="profile"></MudIconButton>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="organization">
+    <Authorized>
+         <MudIconButton Icon="@Icons.Material.Outlined.Person"
+                           id="organization-profile-button"
+                           OnClick="GoToOrganizationProfile"
+                           Color="Color.Primary" aria-label="organization-profile"></MudIconButton>
+    </Authorized>
+</AuthorizeView>
