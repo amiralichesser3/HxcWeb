@@ -1,0 +1,31 @@
+﻿@page "/hxc/user/todos"
+@using HxcApiClient.Common
+@using HxcApiClient.Records
+<h3>User Todos</h3>
+@inject IHxcApiClient HxcApiClient
+
+@if (TodoRecords != null)
+{
+    foreach (TodoRecord todo in TodoRecords)
+    {
+        <MudText>@todo.Title</MudText>
+    }
+}
+
+@code {
+    protected ICollection<TodoRecord>? TodoRecords { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var res = await HxcApiClient.Todos.GetUserTodosAsync();
+        if (res.IsSuccess)
+        {
+            TodoRecords = res.Data;
+        }
+        else
+        {
+            Console.WriteLine(res.StatusCode);
+            Console.WriteLine(res.ErrorMessage);
+        }
+    }
+}
