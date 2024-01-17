@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Components.Web;
+﻿using Microsoft.AspNetCore.Components.Web;
 
 namespace HxcUi.Components.JobsComponent;
 
@@ -9,11 +8,6 @@ public partial class Jobs
     private const string OrganizationProfileUrl = "hxc/organization/profile";
     private const string OrganizationTodosUrl = "hxc/user/todos";
     private const string TodosUrl = "hxc/organization/todos";
-
-    protected override async Task OnInitializedAsync()
-    {
-        await HxcHttpClient.GetAsync("/api/organization/todos");
-    }
 
     private void GoToProfile(MouseEventArgs obj)
     {

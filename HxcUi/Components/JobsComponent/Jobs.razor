@@ -1,20 +1,16 @@
 ﻿@page "/hxc/jobs"
 @inject NavigationManager NavigationManager
-@inject HttpClient HxcHttpClient
 
 <h3>Help<span style="color: #c02d76">X</span>Change</h3>
-<AuthorizeView>
-    <Authorized>
-        <MudIconButton Icon="@Icons.Material.Outlined.Person"
+<MudIconButton Icon="@Icons.Material.Outlined.Person"
                        id="profile-button"
                        OnClick="GoToProfile"
                        Color="Color.Secondary" aria-label="profile"></MudIconButton>
-        <MudIconButton Icon="@Icons.Material.Outlined.List"
-                                id="todos-button"
-                                OnClick="GoToUserTodos"
-                                Color="Color.Secondary" aria-label="todos"></MudIconButton>
-    </Authorized>
-</AuthorizeView>
+<MudIconButton Icon="@Icons.Material.Outlined.List"
+               id="todos-button"
+               OnClick="GoToUserTodos"
+               Color="Color.Secondary" aria-label="todos">
+</MudIconButton>
 
 <AuthorizeView Roles="organization">
     <Authorized>

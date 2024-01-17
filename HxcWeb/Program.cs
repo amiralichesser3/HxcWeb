@@ -32,13 +32,13 @@ public class Program
         
         builder.Services.RegisterHxcUi();
 
-        builder.Services.AddScoped<AuthorizationMessageHandler>();
+        builder.Services.AddScoped<HxcAuthorizationMessageHandler>();
         
         builder.Services.AddHttpClient("HxcHttpClient", 
                 client => client.BaseAddress = new Uri(builder.Configuration["HxcApiBaseAddress"]!))
             .AddHttpMessageHandler(sp =>
             {
-                var handler = sp.GetRequiredService<AuthorizationMessageHandler>();
+                var handler = sp.GetRequiredService<HxcAuthorizationMessageHandler>();
                 handler.ConfigureHandler(new List<string>() { builder.Configuration["HxcApiBaseAddress"]! });
                 return handler;
             });
