@@ -1,6 +1,9 @@
 ﻿@page "/hxc/profile"
+@attribute [Authorize(Roles = "organization")]
+
 @using HxcUi.Services.Auth
 @using HxcUi.Services.Auth.Dto
+@using Microsoft.AspNetCore.Authorization
 @inject IAuthService AuthService
 
 @if (UserProfile is not null)
