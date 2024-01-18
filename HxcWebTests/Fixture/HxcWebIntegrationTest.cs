@@ -9,19 +9,17 @@ public abstract class HxcWebIntegrationTest : PageTest
 {
     protected static string BaseUrl => $"http://localhost:5000/";
 
-    [TestInitialize]
-    public async Task InitializeAsync()
+    protected static async Task BaseClassInitialize(TestContext context)
     {
         await DockerHelper.RunDockerCommandAsync(GetComposeCommand(), "up -d");
     }
 
-    [TestCleanup]
-    public async Task CleanupAsync()
+    protected static async Task BaseClassCleanup()
     {
         await DockerHelper.RunDockerCommandAsync(GetComposeCommand(), "down");
     }
 
-    private string GetComposeCommand()
+    private static string GetComposeCommand()
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")

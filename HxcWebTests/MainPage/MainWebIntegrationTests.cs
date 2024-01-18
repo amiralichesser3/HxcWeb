@@ -7,6 +7,18 @@ public class MainWebIntegrationTests : HxcWebIntegrationTest
 {
     protected const string AccessDeniedSelector = "#access-denied";
 
+    [ClassInitialize]
+    public new static Task ClassInitialize(TestContext context)
+    {
+        return BaseClassInitialize(context);
+    }
+
+    [ClassCleanup]
+    public static async Task ClassCleanup()
+    {
+        await BaseClassCleanup();
+    }
+    
     [TestMethod]
     public async Task HomePageLoaded_HxcJobsClicked_RoutingWorks()
     {
