@@ -1,14 +1,16 @@
 ﻿@page "/hxc/organization/todos"
 @using HxcApiClient.Common
+@using HxcApiClient.Http
 @using HxcApiClient.Records
 <h3>Organization Todos</h3>
 @inject IHxcApiClient HxcApiClient
+@inject IDialogService DialogService
 
 @if (TodoRecords != null)
 {
     foreach (TodoRecord todo in TodoRecords)
     {
-        <MudText>@todo.Title</MudText>
+        <MudButton OnClick="() => LoadTodo(todo.Id)">@todo.Title</MudButton>
     }
 }
 
@@ -17,15 +19,44 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var res = await HxcApiClient.Todos.GetOrganizationTodosAsync();
-        if (res.IsSuccess)
+        HxcHttpResponse<ICollection<TodoRecord>> response = await HxcApiClient.Todos.GetOrganizationTodosAsync();
+        if (response.IsSuccess)
         {
-            TodoRecords = res.Data;
+            TodoRecords = response.Data;
         }
         else
         {
-            Console.WriteLine(res.StatusCode);
-            Console.WriteLine(res.ErrorMessage);
+            Console.WriteLine(response.StatusCode);
+            Console.WriteLine(response.ErrorMessage);
+        }
+    }
+
+    private async Task LoadTodo(int todoId)
+    {
+        HxcHttpResponse<TodoRecord> response = await HxcApiClient.Todos.GetOrganizationTodoByIdAsync(todoId);
+        if (response.IsSuccess)
+        {
+            DialogParameters parameters = new()
+            {
+                { nameof(TodoDialog.Todo), response.Data }
+            };
+
+            DialogOptions options = new()
+            {
+                NoHeader = false,
+                CloseButton = true,
+                MaxWidth = MaxWidth.Medium,
+                FullWidth = true,
+                CloseOnEscapeKey = true,
+                Position = DialogPosition.Center
+            };
+
+            await DialogService.ShowAsync<TodoDialog>("Todo", parameters, options);
+        }
+        else
+        {
+            Console.WriteLine(response.StatusCode);
+            Console.WriteLine(response.ErrorMessage);
         }
     }
 }
