@@ -1,7 +1,7 @@
 ﻿@page "/hxc/organization/todos"
 @using HxcApiClient.Common
 @using HxcApiClient.Http
-@using HxcApiClient.Records
+@using HxcApiClient.Todos.Records
 <h3>Organization Todos</h3>
 @inject IHxcApiClient HxcApiClient
 @inject IDialogService DialogService
@@ -12,9 +12,14 @@
     {
         <MudButton OnClick="() => LoadTodo(todo.Id)">@todo.Title</MudButton>
     }
+    <br/>
+    <MudButton Disabled="IsLoading" OnClick="AddRandomTodoAsync">Add Random Todo</MudButton>
+    <br/>
+    <MudButton Disabled="IsLoading" OnClick="AddInvalidTodoAsync">Add Invalid Todo</MudButton>
 }
 
 @code {
+    bool IsLoading { get; set; }
     protected ICollection<TodoRecord>? TodoRecords { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -59,4 +64,41 @@
             Console.WriteLine(response.ErrorMessage);
         }
     }
+
+    private async Task AddRandomTodoAsync()
+    {
+        IsLoading = true;
+        TodoRecord todo = new(0, Guid.NewGuid().ToString(), DateTime.Now);
+        HxcHttpResponse response = await HxcApiClient.Todos.CreateOrganizationTodoAsync(todo);
+        if (response.IsSuccess)
+        {
+            Console.WriteLine("Successfully Added Todo");
+        }
+        else
+        {
+            Console.WriteLine(response.StatusCode);
+            Console.WriteLine(response.ErrorMessage);
+        }
+
+        IsLoading = false;
+    }
+
+    private async Task AddInvalidTodoAsync()
+    {
+        IsLoading = true;
+        TodoRecord todo = new(0, "Killing some innocent people", DateTime.Now);
+        HxcHttpResponse response = await HxcApiClient.Todos.CreateOrganizationTodoAsync(todo);
+        if (response.IsSuccess)
+        {
+            Console.WriteLine("Successfully Added Todo");
+        }
+        else
+        {
+            Console.WriteLine(response.StatusCode);
+            Console.WriteLine(response.ErrorMessage);
+        }
+
+        IsLoading = false;
+    }
+
 }
